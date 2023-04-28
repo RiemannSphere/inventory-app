@@ -1,4 +1,4 @@
-import { InventoryItem } from "../interfaces/inventory.interface";
+import { InventoryItem } from "../store/inventory.model";
 
 export const INVENTORY_ITEMS: InventoryItem[] = [
     {

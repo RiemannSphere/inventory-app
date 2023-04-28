@@ -1,7 +1,14 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { InventoryItem } from '../../interfaces/inventory.interface';
 import { INVENTORY_ITEMS } from '../../mocks/inventory.mock';
+import { InventoryItem } from '../../store/inventory.model';
+import { Store } from '@ngrx/store';
+import { InventoryItemState } from '../../store/inventory.reducers';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { selectInventoryItems, selectInventoryItemsArray } from '../../store/inventory.selectors';
+import { Dictionary } from '@ngrx/entity';
+import { loadInventoryItems } from '../../store/inventory.actions';
 
 @Component({
   selector: 'app-inventory',
@@ -13,8 +20,13 @@ export class InventoryComponent {
   displayedColumns: string[] = ['name', 'amount', 'createdAt', 'lastUpdatedAt', 'actions'];
   dataSource: InventoryItem[] = INVENTORY_ITEMS;
   newItem: FormGroup;
+
+  inventoryItems$: Observable<InventoryItem[]>;
   
-  constructor(private fb: FormBuilder){
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly store: Store<InventoryItemState>
+  ){
     this.newItem = this.fb.group<InventoryItem>({
       id: 0,
       name: '',
@@ -22,6 +34,9 @@ export class InventoryComponent {
       createdAt: new Date(),
       lastUpdatedAt: new Date()
     });
+
+    this.inventoryItems$ = this.store.select(selectInventoryItemsArray);
+    this.store.dispatch(loadInventoryItems());
   }
 
   onItemAddOne(item: InventoryItem): void {
