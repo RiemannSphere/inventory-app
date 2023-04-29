@@ -1,14 +1,20 @@
-import { createSelector } from "@ngrx/store";
-import { inventoryAdapter } from "./inventory.reducers";
-import { InventoryItem } from "./inventory.model";
+import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { InventoryItemState, inventoryAdapter } from "./inventory.reducers";
 
-export const selectInventoryItems = inventoryAdapter.getSelectors().selectEntities;
+export const selectInventoryState = createFeatureSelector<InventoryItemState>('inventoryItems');
+
+export const {
+    selectIds,
+    selectEntities,
+    selectAll,
+    selectTotal,
+} = inventoryAdapter.getSelectors(selectInventoryState);
 
 export const selectInventoryItemsArray = createSelector(
-    selectInventoryItems,
+    selectAll,
     (inventoryItems) => {
         console.log('selector: ', inventoryItems);
 
-        return inventoryItems ? Object.values(inventoryItems) as InventoryItem[] : [];
+        return inventoryItems ? inventoryItems : [];
     }
 );

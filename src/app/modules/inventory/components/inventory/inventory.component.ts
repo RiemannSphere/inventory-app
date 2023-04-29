@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { InventoryItemState } from '../../store/inventory.reducers';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { selectInventoryItems, selectInventoryItemsArray } from '../../store/inventory.selectors';
+import { selectInventoryItemsArray } from '../../store/inventory.selectors';
 import { Dictionary } from '@ngrx/entity';
 import { loadInventoryItems } from '../../store/inventory.actions';
 
@@ -35,8 +35,8 @@ export class InventoryComponent {
       lastUpdatedAt: new Date()
     });
 
-    this.inventoryItems$ = this.store.select(selectInventoryItemsArray);
     this.store.dispatch(loadInventoryItems());
+    this.inventoryItems$ = this.store.select(selectInventoryItemsArray);
   }
 
   onItemAddOne(item: InventoryItem): void {
