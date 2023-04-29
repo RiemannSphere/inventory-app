@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { addInventoryItem } from '@app/modules/inventory/store/inventory.actions';
+import { InventoryItem } from '@app/modules/inventory/store/inventory.model';
+import { InventoryItemState } from '@app/modules/inventory/store/inventory.reducers';
 import { Store } from '@ngrx/store';
-import { InventoryItem } from 'src/app/modules/inventory/store/inventory.model';
-import { InventoryItemState } from 'src/app/modules/inventory/store/inventory.reducers';
 
 @Component({
   selector: 'app-empty-inventory',

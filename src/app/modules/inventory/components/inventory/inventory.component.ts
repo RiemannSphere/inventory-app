@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { INVENTORY_ITEMS } from '../../mocks/inventory.mock';
-import { InventoryItem } from '../../store/inventory.model';
 import { Store } from '@ngrx/store';
-import { InventoryItemState } from '../../store/inventory.reducers';
 import { Observable } from 'rxjs';
-import { selectInventoryItemsArray } from '../../store/inventory.selectors';
+import { InventoryItem } from '../../store/inventory.model';
+import { INVENTORY_ITEMS } from '../../mocks/inventory.mock';
+import { InventoryItemState } from '../../store/inventory.reducers';
 import { addInventoryItem, loadInventoryItems, removeInventoryItem, updateInventoryItem } from '../../store/inventory.actions';
+import { selectInventoryItemsArray } from '../../store/inventory.selectors';
 
 @Component({
   selector: 'app-inventory',
