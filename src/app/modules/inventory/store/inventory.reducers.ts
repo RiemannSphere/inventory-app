@@ -3,7 +3,7 @@ import { createReducer, on } from "@ngrx/store";
 import { InventoryItem } from "./inventory.model";
 import { addInventoryItem, loadInventoryItemsSuccess, removeInventoryItem, updateInventoryItem } from "./inventory.actions";
 
-export interface InventoryItemState extends EntityState<InventoryItem> {}
+export type InventoryItemState = EntityState<InventoryItem>;
 
 export const inventoryAdapter: EntityAdapter<InventoryItem> = createEntityAdapter<InventoryItem>();
 
