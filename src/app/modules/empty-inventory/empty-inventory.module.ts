@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { EmptyInventoryComponent } from './components/empty-inventory/empty-inventory.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { EmptyInventoryComponent } from './components/empty-inventory/empty-inve
   ],
   imports: [
     CommonModule,
+    NoopAnimationsModule,
     MatCardModule,
     MatIconModule,
     MatInputModule,

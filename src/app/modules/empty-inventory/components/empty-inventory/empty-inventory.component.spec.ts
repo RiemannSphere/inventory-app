@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EmptyInventoryComponent } from './empty-inventory.component';
 import { provideMockStore } from '@ngrx/store/testing';
-import { EmptyInventoryModule } from '../../empty-inventory.module';
+import { EmptyInventoryComponent } from './empty-inventory.component';
+import { EmptyInventoryModule } from '../../empty-inventory.module'
 
 describe('EmptyInventoryComponent', () => {
   let component: EmptyInventoryComponent;
@@ -10,13 +10,15 @@ describe('EmptyInventoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EmptyInventoryComponent ],
+      declarations: [EmptyInventoryComponent],
       imports: [
-        EmptyInventoryModule,
+        EmptyInventoryModule
+      ],
+      providers: [
         provideMockStore({})
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(EmptyInventoryComponent);
     component = fixture.componentInstance;
