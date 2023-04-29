@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { addInventoryItem } from '@app/modules/inventory/store/inventory.actions';
 import { Store } from '@ngrx/store';
-import { addInventoryItem } from 'src/app/modules/inventory/store/inventory.actions';
 import { InventoryItem } from 'src/app/modules/inventory/store/inventory.model';
 import { InventoryItemState } from 'src/app/modules/inventory/store/inventory.reducers';
 
