@@ -1,0 +1,24 @@
+<div class="empty-inventory__wrapper">
+    <mat-card class="wrapper__card" [formGroup]="newItem">
+        <img mat-card-image src="https://media.giphy.com/media/jWexOOlYe241y/giphy.gif">
+        <mat-card-content class="card__message">
+            <p>Oups! Looks like your inventory is empty.</p>
+            <p>Do you want to add an item?</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput type="text" formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Amount</mat-label>
+                <input matInput type="number" min="1" formControlName="amount">
+            </mat-form-field>
+
+            <button mat-icon-button color="primary" (click)="onItemAddNew(newItem.value)">
+                <mat-icon>add_circle</mat-icon>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

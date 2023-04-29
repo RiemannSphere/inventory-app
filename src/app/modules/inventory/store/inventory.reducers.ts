@@ -15,7 +15,12 @@ export const inventoryReducer = createReducer(
         return inventoryAdapter.setAll(inventoryItems, state);
     }),
     on(addInventoryItem, (state, inventoryItem) => {
-        return inventoryAdapter.addOne(inventoryItem, state);
+        const nextId: number = state.ids.length > 0 ? Math.max(...state.ids.map(id => +id)) + 1 : 1;
+
+        return inventoryAdapter.addOne({
+            ...inventoryItem,
+            id: nextId
+        }, state);
     }),
     on(removeInventoryItem, (state, { id }) => {
         return inventoryAdapter.removeOne(id, state);

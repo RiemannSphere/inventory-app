@@ -6,8 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
-import { InventoryEffects } from './store/inventory.effects';
-import { EffectsModule } from '@ngrx/effects';
+import { EmptyInventoryModule } from '../empty-inventory/empty-inventory.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,8 @@ import { EffectsModule } from '@ngrx/effects';
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    EmptyInventoryModule
   ],
   exports: [
     InventoryComponent

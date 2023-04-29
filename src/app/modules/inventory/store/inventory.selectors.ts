@@ -10,9 +10,4 @@ export const {
     selectTotal,
 } = inventoryAdapter.getSelectors(selectInventoryState);
 
-export const selectInventoryItemsArray = createSelector(
-    selectAll,
-    (inventoryItems) => {
-        return inventoryItems ? inventoryItems : [];
-    }
-);
+export const selectInventoryItemsArray = selectAll;
