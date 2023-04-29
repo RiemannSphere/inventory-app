@@ -8,15 +8,15 @@
         <mat-card-actions>
             <mat-form-field>
                 <mat-label>Name</mat-label>
-                <input matInput type="text" formControlName="name">
+                <input matInput type="text" formControlName="name" data-test-id="ei-new-name-input">
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>Amount</mat-label>
-                <input matInput type="number" min="1" formControlName="amount">
+                <input matInput type="number" min="1" formControlName="amount" data-test-id="ei-new-amount-input">
             </mat-form-field>
 
-            <button mat-icon-button color="primary" (click)="onAddNewItem(newItem.value)" data-test-id="add-btn">
+            <button mat-icon-button color="primary" (click)="onAddNewItem(newItem.value)" data-test-id="ei-add-btn">
                 <mat-icon>add_circle</mat-icon>
             </button>
         </mat-card-actions>

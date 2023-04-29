@@ -53,7 +53,7 @@ describe('EmptyInventoryComponent', () => {
 
       tick(500);
 
-      const btn = fixture.debugElement.query(By.css('[data-test-id="add-btn"]'));
+      const btn = fixture.debugElement.query(By.css('[data-test-id="ei-add-btn"]'));
       btn.nativeElement.click();
 
       expect(dispatchSpy).toHaveBeenCalledWith({
@@ -78,7 +78,7 @@ describe('EmptyInventoryComponent', () => {
 
       tick(500);
 
-      const btn = fixture.debugElement.query(By.css('[data-test-id="add-btn"]'));
+      const btn = fixture.debugElement.query(By.css('[data-test-id="ei-add-btn"]'));
       btn.nativeElement.click();
 
       expect(dispatchSpy).not.toHaveBeenCalled();
@@ -97,7 +97,7 @@ describe('EmptyInventoryComponent', () => {
 
       tick(500);
 
-      const btn = fixture.debugElement.query(By.css('[data-test-id="add-btn"]'));
+      const btn = fixture.debugElement.query(By.css('[data-test-id="ei-add-btn"]'));
       btn.nativeElement.click();
 
       expect(dispatchSpy).not.toHaveBeenCalled();
