@@ -9,6 +9,7 @@ import { DebugElement } from '@angular/core';
 import { InventoryItemState } from '../../store/inventory.reducers';
 import { OUT_OF_STOCK } from '../../const';
 import { addInventoryItem, removeInventoryItem, updateInventoryItem } from '../../store/inventory.actions';
+import { NO_ERRORS_SCHEMA } from '@angular/compiler';
 
 describe('InventoryComponent', () => {
   let component: InventoryComponent;
@@ -170,6 +171,44 @@ describe('InventoryComponent', () => {
         name: 'New Item',
         amount: 8
       }));
+    }));
+
+    it('should not add new inventory item when amount is less than 1', fakeAsync(() => {
+      const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+      component.newItem.setValue({
+        id: 0,
+        name: 'New Item',
+        amount: 0,
+        createdAt: new Date(),
+        lastUpdatedAt: new Date()
+      });
+
+      tick(500);
+
+      const btn = fixture.debugElement.query(By.css('[data-test-id="add-btn"]'));
+      btn.nativeElement.click();
+      
+      expect(dispatchSpy).not.toHaveBeenCalled();
+    }));
+
+    it('should not add new inventory item when name is empty', fakeAsync(() => {
+      const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+      component.newItem.setValue({
+        id: 0,
+        name: '',
+        amount: 6,
+        createdAt: new Date(),
+        lastUpdatedAt: new Date()
+      });
+
+      tick(500);
+
+      const btn = fixture.debugElement.query(By.css('[data-test-id="add-btn"]'));
+      btn.nativeElement.click();
+      
+      expect(dispatchSpy).not.toHaveBeenCalled();
     }));
   });
 });
