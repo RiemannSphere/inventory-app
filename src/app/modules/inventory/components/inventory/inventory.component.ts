@@ -7,6 +7,7 @@ import { INVENTORY_ITEMS } from '../../mocks/inventory.mock';
 import { InventoryItemState } from '../../store/inventory.reducers';
 import { addInventoryItem, loadInventoryItems, removeInventoryItem, updateInventoryItem } from '../../store/inventory.actions';
 import { selectInventoryItemsArray } from '../../store/inventory.selectors';
+import { OUT_OF_STOCK } from '../../const';
 
 @Component({
   selector: 'app-inventory',
@@ -15,6 +16,7 @@ import { selectInventoryItemsArray } from '../../store/inventory.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InventoryComponent {
+  OUT_OF_STOCK = OUT_OF_STOCK;
   displayedColumns: string[] = ['name', 'amount', 'createdAt', 'lastUpdatedAt', 'actions'];
   dataSource: InventoryItem[] = INVENTORY_ITEMS;
   newItem: FormGroup;
@@ -37,7 +39,7 @@ export class InventoryComponent {
     this.inventoryItems$ = this.store.select(selectInventoryItemsArray);
   }
 
-  onItemAddOne(item: InventoryItem): void {
+  onIncrementAmount(item: InventoryItem): void {
     this.store.dispatch(updateInventoryItem({
       id: item.id,
       changes: {
@@ -47,7 +49,7 @@ export class InventoryComponent {
     }));
   }
 
-  onItemRemoveOne(item: InventoryItem): void {
+  onDecrementAmount(item: InventoryItem): void {
     if (item.amount > 0) {
       this.store.dispatch(updateInventoryItem({
         id: item.id,
@@ -59,11 +61,11 @@ export class InventoryComponent {
     }
   }
 
-  onItemRemoveAll(item: InventoryItem): void {
+  onRemoveItem(item: InventoryItem): void {
     this.store.dispatch(removeInventoryItem({ id: item.id }));
   }
 
-  onItemAddNew(item: InventoryItem): void {
+  onAddNewItem(item: InventoryItem): void {
     if (item.amount < 1) {
       alert('Add at least 1 item!');
       return;

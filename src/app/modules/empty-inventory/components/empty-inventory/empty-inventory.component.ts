@@ -27,7 +27,7 @@ export class EmptyInventoryComponent {
     });
   }
 
-  onItemAddNew(item: InventoryItem): void {
+  onAddNewItem(item: InventoryItem): void {
     if (item.amount < 1) {
       alert('Add at least 1 item!');
       return;
