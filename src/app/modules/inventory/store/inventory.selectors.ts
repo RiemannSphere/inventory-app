@@ -13,8 +13,6 @@ export const {
 export const selectInventoryItemsArray = createSelector(
     selectAll,
     (inventoryItems) => {
-        console.log('selector: ', inventoryItems);
-
         return inventoryItems ? inventoryItems : [];
     }
 );

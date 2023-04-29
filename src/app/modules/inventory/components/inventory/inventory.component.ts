@@ -5,10 +5,8 @@ import { InventoryItem } from '../../store/inventory.model';
 import { Store } from '@ngrx/store';
 import { InventoryItemState } from '../../store/inventory.reducers';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { selectInventoryItemsArray } from '../../store/inventory.selectors';
-import { Dictionary } from '@ngrx/entity';
-import { loadInventoryItems } from '../../store/inventory.actions';
+import { addInventoryItem, loadInventoryItems, removeInventoryItem, updateInventoryItem } from '../../store/inventory.actions';
 
 @Component({
   selector: 'app-inventory',
@@ -22,11 +20,11 @@ export class InventoryComponent {
   newItem: FormGroup;
 
   inventoryItems$: Observable<InventoryItem[]>;
-  
+
   constructor(
     private readonly fb: FormBuilder,
     private readonly store: Store<InventoryItemState>
-  ){
+  ) {
     this.newItem = this.fb.group<InventoryItem>({
       id: 0,
       name: '',
@@ -40,35 +38,29 @@ export class InventoryComponent {
   }
 
   onItemAddOne(item: InventoryItem): void {
-    this.dataSource = this.dataSource.map((i) => {
-      if (i.id === item.id) {
-        return {
-          ...i,
-          amount: i.amount + 1,
-          lastUpdatedAt: new Date()
-        }
+    this.store.dispatch(updateInventoryItem({
+      id: item.id,
+      changes: {
+        amount: item.amount + 1,
+        lastUpdatedAt: new Date()
       }
-
-      return i;
-    });
+    }));
   }
 
   onItemRemoveOne(item: InventoryItem): void {
-    this.dataSource = this.dataSource.map((i) => {
-      if (i.id === item.id && i.amount > 0) {
-        return {
-          ...i,
-          amount: i.amount - 1,
+    if (item.amount > 0) {
+      this.store.dispatch(updateInventoryItem({
+        id: item.id,
+        changes: {
+          amount: item.amount - 1,
           lastUpdatedAt: new Date()
         }
-      }
-
-      return i;
-    });
+      }));
+    }
   }
 
   onItemRemoveAll(item: InventoryItem): void {
-    this.dataSource = this.dataSource.filter((i) => i.id !== item.id);
+    this.store.dispatch(removeInventoryItem({ id: item.id }));
   }
 
   onItemAddNew(item: InventoryItem): void {
@@ -77,16 +69,18 @@ export class InventoryComponent {
       return;
     }
 
-    const date = new Date();
-    const newDataSource = Object.assign([], this.dataSource);
+    if (!item.name) {
+      alert('Name your item!');
+      return;
+    }
 
-    newDataSource.push({
+    const date = new Date();
+    this.store.dispatch(addInventoryItem({
       ...item,
-      id: this.dataSource[this.dataSource.length - 1].id + 1,
       createdAt: date,
       lastUpdatedAt: date
-    });
+    }));
 
-    this.dataSource = newDataSource;
+    this.newItem.reset();
   }
 }
