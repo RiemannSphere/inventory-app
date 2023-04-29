@@ -40,24 +40,24 @@ export class InventoryComponent {
   }
 
   onIncrementAmount(item: InventoryItem): void {
-    this.store.dispatch(updateInventoryItem({
+    this.store.dispatch(updateInventoryItem({ update: {
       id: item.id,
       changes: {
         amount: item.amount + 1,
         lastUpdatedAt: new Date()
       }
-    }));
+    }}));
   }
 
   onDecrementAmount(item: InventoryItem): void {
     if (item.amount > 0) {
-      this.store.dispatch(updateInventoryItem({
+      this.store.dispatch(updateInventoryItem({ update: {
         id: item.id,
         changes: {
           amount: item.amount - 1,
           lastUpdatedAt: new Date()
         }
-      }));
+      }}));
     }
   }
 
@@ -77,11 +77,11 @@ export class InventoryComponent {
     }
 
     const date = new Date();
-    this.store.dispatch(addInventoryItem({
+    this.store.dispatch(addInventoryItem({ inventoryItem: {
       ...item,
       createdAt: date,
       lastUpdatedAt: date
-    }));
+    }}));
 
     this.newItem.reset();
   }

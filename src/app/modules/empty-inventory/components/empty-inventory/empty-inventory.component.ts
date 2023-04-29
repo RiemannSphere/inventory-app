@@ -39,11 +39,11 @@ export class EmptyInventoryComponent {
     }
 
     const date = new Date();
-    this.store.dispatch(addInventoryItem({
+    this.store.dispatch(addInventoryItem({ inventoryItem: {
       ...item,
       createdAt: date,
       lastUpdatedAt: date
-    }));
+    }}));
 
     this.newItem.reset();
   }

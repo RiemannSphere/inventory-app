@@ -16,7 +16,7 @@
                 <input matInput type="number" min="1" formControlName="amount">
             </mat-form-field>
 
-            <button mat-icon-button color="primary" (click)="onAddNewItem(newItem.value)">
+            <button mat-icon-button color="primary" (click)="onAddNewItem(newItem.value)" data-test-id="add-btn">
                 <mat-icon>add_circle</mat-icon>
             </button>
         </mat-card-actions>

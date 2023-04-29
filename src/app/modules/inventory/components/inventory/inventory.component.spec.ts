@@ -9,7 +9,7 @@ import { DebugElement } from '@angular/core';
 import { InventoryItemState } from '../../store/inventory.reducers';
 import { OUT_OF_STOCK } from '../../const';
 import { addInventoryItem, removeInventoryItem, updateInventoryItem } from '../../store/inventory.actions';
-import { NO_ERRORS_SCHEMA } from '@angular/compiler';
+import { MOCK_INVENTORY_STATE } from '../../mocks/test.mock';
 
 describe('InventoryComponent', () => {
   let component: InventoryComponent;
@@ -18,44 +18,17 @@ describe('InventoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InventoryComponent ],
+      declarations: [InventoryComponent],
       imports: [
         InventoryModule
       ],
       providers: [
         provideMockStore({
-          initialState: {
-            inventoryItems: {
-              ids: [1,2,3],
-              entities: {
-                1: {
-                  id: 1,
-                  name: 'First',
-                  amount: 1,
-                  createdAt: new Date(),
-                  lastUpdatedAt: new Date()
-                },
-                2: {
-                  id: 2,
-                  name: 'Second',
-                  amount: 5,
-                  createdAt: new Date(),
-                  lastUpdatedAt: new Date()
-                },
-                3: {
-                  id: 3,
-                  name: 'Third',
-                  amount: 0,
-                  createdAt: new Date(),
-                  lastUpdatedAt: new Date()
-                },
-              }
-            }
-          }
+          initialState: MOCK_INVENTORY_STATE
         })
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     store = TestBed.inject(MockStore);
 
@@ -70,7 +43,7 @@ describe('InventoryComponent', () => {
 
   describe('empty state', () => {
     beforeEach(() => {
-      const inventoryItems: DebugElement = fixture.debugElement.query(By.css('[data-test-id="inventory-items"]'));      
+      const inventoryItems: DebugElement = fixture.debugElement.query(By.css('[data-test-id="inventory-items"]'));
       expect(inventoryItems).toBeTruthy();
 
       store.setState({
@@ -99,14 +72,16 @@ describe('InventoryComponent', () => {
 
       const btn = fixture.debugElement.query(By.css('[data-test-id="increment-btn-1"]'));
       btn.nativeElement.click();
-      
-      expect(dispatchSpy).toHaveBeenCalledWith(expect.objectContaining({
+
+      expect(dispatchSpy).toHaveBeenCalledWith({
         type: updateInventoryItem.type,
-        id: 1,
-        changes: expect.objectContaining({
-          amount: 2
+        update: expect.objectContaining({
+          id: 1,
+          changes: expect.objectContaining({
+            amount: 2
+          })
         })
-      }));
+      });
     });
 
     it('should decrement amount of the item when the amount is greater than 0', () => {
@@ -114,14 +89,16 @@ describe('InventoryComponent', () => {
 
       const btn = fixture.debugElement.query(By.css('[data-test-id="decrement-btn-2"]'));
       btn.nativeElement.click();
-      
-      expect(dispatchSpy).toHaveBeenCalledWith(expect.objectContaining({
+
+      expect(dispatchSpy).toHaveBeenCalledWith({
         type: updateInventoryItem.type,
-        id: 2,
-        changes: expect.objectContaining({
-          amount: 4
+        update: expect.objectContaining({
+          id: 2,
+          changes: expect.objectContaining({
+            amount: 4
+          })
         })
-      }));
+      });
     });
 
     it('should not decrement amount of the item when the amount is less than 1', () => {
@@ -129,7 +106,7 @@ describe('InventoryComponent', () => {
 
       const btn = fixture.debugElement.query(By.css('[data-test-id="decrement-btn-3"]'));
       btn.nativeElement.click();
-      
+
       expect(dispatchSpy).not.toHaveBeenCalled();
     });
 
@@ -143,7 +120,7 @@ describe('InventoryComponent', () => {
 
       const btn = fixture.debugElement.query(By.css('[data-test-id="remove-btn-1"]'));
       btn.nativeElement.click();
-      
+
       expect(dispatchSpy).toHaveBeenCalledWith(expect.objectContaining({
         type: removeInventoryItem.type,
         id: 1
@@ -165,12 +142,14 @@ describe('InventoryComponent', () => {
 
       const btn = fixture.debugElement.query(By.css('[data-test-id="add-btn"]'));
       btn.nativeElement.click();
-      
-      expect(dispatchSpy).toHaveBeenCalledWith(expect.objectContaining({
+
+      expect(dispatchSpy).toHaveBeenCalledWith({
         type: addInventoryItem.type,
-        name: 'New Item',
-        amount: 8
-      }));
+        inventoryItem: expect.objectContaining({
+          name: 'New Item',
+          amount: 8
+        })
+      });
     }));
 
     it('should not add new inventory item when amount is less than 1', fakeAsync(() => {
@@ -188,7 +167,7 @@ describe('InventoryComponent', () => {
 
       const btn = fixture.debugElement.query(By.css('[data-test-id="add-btn"]'));
       btn.nativeElement.click();
-      
+
       expect(dispatchSpy).not.toHaveBeenCalled();
     }));
 
@@ -207,7 +186,7 @@ describe('InventoryComponent', () => {
 
       const btn = fixture.debugElement.query(By.css('[data-test-id="add-btn"]'));
       btn.nativeElement.click();
-      
+
       expect(dispatchSpy).not.toHaveBeenCalled();
     }));
   });
